@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Table Display</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+        padding: 20px;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+
+      }
+      th,
+      td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: center;
+      }
+      th {
+        background-color: #f2f2f2;
+      }
+      h2 {
+        margin-top: 40px;
+      }
+    </style>
+  </head>
+  <body>
+    <table id="table 1">
+      <tr>
+        <th>Category</th>
+        <th>Value</th>
+      </tr>
+      <tr>
+        <td>Alpha</td>
+        <td id="Alpha"></td>
+      </tr>
+      <tr>
+        <td>Beta</td>
+        <td id="Beta"></td>
+      </tr>
+      <tr>
+        <td>Charlie</td>
+        <td id="Charlie"></td>
+      </tr>
+    </table>
+
+    <script>
+        fetch("Table_Input (1).csv")
+          .then((response) => response.text())
+          .then((data) => {
+            const rows = data.trim().split("\n").slice(1);
+            const table_values = {};
+
+            rows.forEach((row) => {
+              const [index, value] = row.split(",");
+              table_values[index] = Number(value);
+            });
+            document.getElementById("Alpha").textContent =
+              table_values["A5"] + table_values["A20"];
+            document.getElementById("Beta").textContent =
+              table_values["A15"] / table_values["A7"];
+            document.getElementById("Charlie").textContent =
+              table_values["A13"] + table_values["A12"];
+          });
+    </script>
+  </body>
+</html>
